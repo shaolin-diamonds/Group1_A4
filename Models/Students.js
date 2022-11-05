@@ -16,6 +16,11 @@ const Student = new Schema({
     {
         type: String,
         required: true
+    },
+    dateEntered:
+    {
+        type: Date,
+        required: false
     }
 });
 
