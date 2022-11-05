@@ -85,7 +85,8 @@ app.post('/addCourse', async (req,res) => {
             courseInstructor: req.body.courseInstructor,
             courseCredits: req.body.courseCredits,
             courseID: req.body.courseID,
-            courseName: req.body.courseName
+            courseName: req.body.courseName,
+            dateEntered: new Date()
         }
 
         await Course(program).save().then(c => {
@@ -102,7 +103,8 @@ app.post('/addStudent', async (req,res) => {
         let learner = {
             fname: req.body.fname,
             lname: req.body.lname,
-            studentID: req.body.studentID
+            studentID: req.body.studentID,
+            dateEntered: new Date()
         }
 
         await Student(learner).save().then(c => {
