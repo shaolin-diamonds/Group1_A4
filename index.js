@@ -61,29 +61,21 @@ app.get('/getAllStudents', async (req,res) => {
 
 app.get('/findStudent', async (req,res) => {
     try {
-        const query = Student.find();
-        query.setOptions({ lean : true });
-        query.collection(Student.collection);
-        query.where('fname').gte("First").exec(callback);
-
-        return res.status(200).json(query);
+        let learners = await Student.find({fname: req.body.fname}).lean();
+        return res.status(200).json(learners);
     }
     catch {
-        return res.status(500).json("{message: Failed to access student data}");
+        return res.status(500).json("{message: Unable to find}");
     }
 });
 
 app.get('/findCourse', async (req,res) => {
     try {
-        let programs = await Course.find({
-            courseInstructor: req.body.courseInstructor,
-            courseCredits: req.body.courseCredits,
-            courseID: req.body.courseID,
-            courseName: req.body.courseName}).exec();
+        let programs = await Course.find({courseID: req.body.courseID}).lean();
         return res.status(200).json(programs);
     }
     catch {
-        return res.status(500).json("{message: Failed to access course data}");
+        return res.status(500).json("{message: Unable to find}");
     }
 });
 
